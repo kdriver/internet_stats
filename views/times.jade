@@ -1,10 +1,11 @@
 extends layout
 
-
 block content
-    h1.
-        User List
+    h1=keith
+    p=time_list.length
     ul
-        each t, i in times
-            li
-		<p>t</p>
+        each val in time_list
+            li=JSON.stringify(new Date(parseInt(val._id.toString().substring(0,8),16)*1000).toUTCString())
+
+
+
