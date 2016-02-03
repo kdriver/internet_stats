@@ -33,15 +33,10 @@ var findTimes = function(db, callback) {
                 process.stdout.write(JSON.stringify(docs[0],null,4));
                     callback();
                 }
-              
                 
                 });
 };
 
-//   var cnt = db.collection('mbp').count();
-//    var cursor = db.collection('mbp').find();
-//process.stdout.write("mongoing count " + cnt  + "\n");
-//	console.log(cnt);
 
 /* do the mongo */
 router.get('/times', function(req, res) {
@@ -50,11 +45,11 @@ router.get('/times', function(req, res) {
       assert.equal(err, null);
       findTimes(db,function() {
                         db.close();
+    process.stdout.write("render it " + docs.length + "\n");
+           res.render('times', { "time_list" : docs , "number" : 1} );
                     });
 	});
-    process.stdout.write("render it " + docs.length + "\n");
 	
-           res.render('times', { "time_list" : docs , "number" : 1} );
 
 //    res.render('times', { title: 'times' });
 });

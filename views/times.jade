@@ -1,11 +1,31 @@
-extends layout
+doctype html
 
-block content
+html
+  head
+    title Times
+    script(src='public/keith.js')
+    script(type='text/javascript' src="/public/zingchart.min.js")
+
+    script.
+       var chartData={
+       "type":"bar",  // Specify your chart type here.
+       "series":[  // Insert your series data here.
+        { "values": [35, 42, 67, 89]},
+        { "values": [28, 40, 39, 36]}
+        ]
+        };
+        window.onload=function(){  // Render Method[2]
+           zingchart.render({ 
+           id:'chartDiv',
+           data:chartData,
+           height:400,
+           width:600
+         });
+       };
+  body
     h1=keith
-    p=time_list.length
+    p=number
     ul
         each val in time_list
             li=JSON.stringify(new Date(parseInt(val._id.toString().substring(0,8),16)*1000).toUTCString())
-
-
-
+    div(id="chartDiv")
