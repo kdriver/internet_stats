@@ -6,28 +6,44 @@ html
     script(type='text/javascript' src="zingchart/client/zingchart.min.js")
 
     script.
-       var chartData={
-       "type":"bar",  // Specify your chart type here.
+       var ping_chartData={
+       "type":"line",  // Specify your chart type here.
        "series":[  // Insert your series data here.
-        { "values": [0,1,2,3] }
+        { "values": [ #{gpings} ] },
+        { "values": [ #{apings} ] },
+        { "values": [ #{ppings} ] }
+        ]
+        };
+       var rate_chartData={
+       "type":"line",  // Specify your chart type here.
+       "series":[  // Insert your series data here.
+        { "values": [ #{gpings} ] },
+        { "values": [ #{apings} ] },
+        { "values": [ #{ppings} ] }
         ]
         };
         window.onload=function(){  // Render Method[2]
            zingchart.render({ 
-           id:'chartDiv',
-           data:chartData,
+           id:'pingDiv',
+           data:ping_chartData,
+           height:400,
+           width:600
+         });
+           zingchart.render({ 
+           id:'rateDiv',
+           data:rate_chartData,
            height:400,
            width:600
          });
        };
   body
     h1=keith
-    script.
-       var the_google_pings=JSON.stringify(gpings);
-    ul
-        each val in time_list
-            li=JSON.stringify(new Date(parseInt(val._id.toString().substring(0,8),16)*1000).toUTCString())
-        each val in gpings
-            li=JSON.stringify(val)
 
-    div(id="chartDiv")
+    div(id="pingDiv")
+    div(id="rateDiv")
+
+//    ul
+//        each val in gpings
+//            li=JSON.stringify(val)
+//        each val in time_list
+//           li=JSON.stringify(new Date(parseInt(val._id.toString().substring(0,8),16)*1000).toUTCString())

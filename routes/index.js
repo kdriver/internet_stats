@@ -48,21 +48,23 @@ router.get('/times', function(req, res) {
                         db.close();
                         var len = docs.length;
 			google_pings=[];
+			plus_pings=[];
+			apple_pings=[];
                         for ( var i = 0 ; i < len ; i++ ) {
                            google_pings.push(docs[i].google_ping);
+                           plus_pings.push(docs[i].plus_ping);
+                           apple_pings.push(docs[i].apple_ping);
                         }
-                           console.log(JSON.stringify(google_pings,null,4));
                            options= {
 				"time_list" : docs,
-                                "gpings"    : google_pings
+                                "gpings"    : google_pings,
+                                "apings"    : apple_pings,
+                                "ppings"    : plus_pings
                            };
 
 			   res.render('times', options );
                     });
 	});
-	
-
-//    res.render('times', { title: 'times' });
 });
 
 /* GET times page. 
