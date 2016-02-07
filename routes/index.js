@@ -16,6 +16,7 @@ router.get('/helloworld', function(req, res) {
 });
 
 var docs=[];
+var google_pings=[];
 
 var findTimes = function(db, callback) {
     var cursor = db.collection('mbp').find( ).sort({"_id":-1}).limit(10);
@@ -45,8 +46,18 @@ router.get('/times', function(req, res) {
       assert.equal(err, null);
       findTimes(db,function() {
                         db.close();
-    process.stdout.write("render it " + docs.length + "\n");
-           res.render('times', { "time_list" : docs , "number" : 1} );
+                        var len = docs.length;
+			google_pings=[];
+                        for ( var i = 0 ; i < len ; i++ ) {
+                           google_pings.push(docs[i].google_ping);
+                        }
+                           console.log(JSON.stringify(google_pings,null,4));
+                           options= {
+				"time_list" : docs,
+                                "gpings"    : google_pings
+                           };
+
+			   res.render('times', options );
                     });
 	});
 	

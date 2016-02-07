@@ -9,8 +9,7 @@ html
        var chartData={
        "type":"bar",  // Specify your chart type here.
        "series":[  // Insert your series data here.
-        { "values": [35, 42, 67, 89]},
-        { "values": [28, 40, 39, 36]}
+        { "values": [0,1,2,3] }
         ]
         };
         window.onload=function(){  // Render Method[2]
@@ -23,7 +22,12 @@ html
        };
   body
     h1=keith
+    script.
+       var the_google_pings=JSON.stringify(gpings);
     ul
         each val in time_list
             li=JSON.stringify(new Date(parseInt(val._id.toString().substring(0,8),16)*1000).toUTCString())
+        each val in gpings
+            li=JSON.stringify(val)
+
     div(id="chartDiv")
