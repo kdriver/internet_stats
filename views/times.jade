@@ -8,6 +8,14 @@ html
     script.
        var ping_chartData={
        "type":"line",  // Specify your chart type here.
+        "scale-x":{
+                   "min-value":#{the_time},    /* in Unix time */
+                   "step":"hour",                /* in Unix time (or use ZingChart's shortcuts) */
+                   "transform":{                /* to convert to a readable format */
+                        "type":"date",
+                        "all":"%M %d, %Y"
+                    }
+       },
        "series":[  // Insert your series data here.
         { "values": [ #{gpings} ] },
         { "values": [ #{apings} ] },

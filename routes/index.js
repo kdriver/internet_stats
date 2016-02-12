@@ -19,7 +19,7 @@ var docs=[];
 var google_pings=[];
 
 var findTimes = function(db, callback) {
-    var cursor = db.collection('mbp').find( ).sort({"_id":-1}).limit(10);
+    var cursor = db.collection('mbp').find( ).sort({"$natural":-1}).limit(30);
    docs = [];
     cursor.each(function(err,doc) {
                 assert.equal(err,null);
@@ -50,6 +50,7 @@ router.get('/times', function(req, res) {
 			google_pings=[];
 			plus_pings=[];
 			apple_pings=[];
+			the_time=docs[0].timestamp
                         for ( var i = 0 ; i < len ; i++ ) {
                            google_pings.push(docs[i].google_ping);
                            plus_pings.push(docs[i].plus_ping);
@@ -61,6 +62,8 @@ router.get('/times', function(req, res) {
                                 "apings"    : apple_pings,
                                 "ppings"    : plus_pings
                            };
+                           var ts = Math.floor(Date.now());
+			   console.log(ts);
 
 			   res.render('times', options );
                     });
