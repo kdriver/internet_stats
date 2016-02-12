@@ -1,3 +1,4 @@
+var wait = 1;
 var express = require('express');
 var router = express.Router();
 var assert = require('assert');
