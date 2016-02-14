@@ -20,7 +20,7 @@ var docs=[];
 var google_pings=[];
 
 var findTimes = function(db, callback) {
-    var cursor = db.collection('mbp').find( ).sort({"$natural":-1}).limit(30);
+    var cursor = db.collection('mbp').find( ).sort({"$natural":-1}).limit(10);
    docs = [];
     cursor.each(function(err,doc) {
                 assert.equal(err,null);
@@ -51,20 +51,26 @@ router.get('/times', function(req, res) {
 			google_pings=[];
 			plus_pings=[];
 			apple_pings=[];
-			the_time=docs[0].timestamp
+			plus_rates=[];
+			bradbury_rates=[];
+			imac_rates=[];
+                        scale=1000;
+			the_time=docs[0].timestamp;
                         for ( var i = 0 ; i < len ; i++ ) {
                            google_pings.push(docs[i].google_ping);
                            plus_pings.push(docs[i].plus_ping);
                            apple_pings.push(docs[i].apple_ping);
+			   plus_rates.push(docs[i].plus_rate/scale);
+			   bradbury_rates.push(docs[i].bradbury_rate/scale);
+			   imac_rates.push(docs[i].imac_rate/scale);
                         }
                            options= {
 				"time_list" : docs,
                                 "gpings"    : google_pings,
                                 "apings"    : apple_pings,
-                                "ppings"    : plus_pings
+                                "ppings"    : plus_pings,
+                                "b_rates"    : bradbury_rates
                            };
-                           var ts = Math.floor(Date.now());
-			   console.log(ts);
 
 			   res.render('times', options );
                     });

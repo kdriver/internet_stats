@@ -8,26 +8,51 @@ html
     script.
        var ping_chartData={
        "type":"line",  // Specify your chart type here.
+       "title": {
+            "text": "Ping response time in mS"
+       },
+       "legend": {},
+        "scale-y":{
+                 "zooming": true
+         },
         "scale-x":{
-                   "min-value":#{the_time},    /* in Unix time */
+                   "min-value": #{the_time},    /* in Unix time */
                    "step":"hour",                /* in Unix time (or use ZingChart's shortcuts) */
                    "transform":{                /* to convert to a readable format */
                         "type":"date",
-                        "all":"%M %d, %Y"
-                    }
+                        "all":"%H:%i %d, %M %y"
+                    },
+                    "zooming": true
        },
        "series":[  // Insert your series data here.
-        { "values": [ #{gpings} ] },
-        { "values": [ #{apings} ] },
-        { "values": [ #{ppings} ] }
+        { "values": [ #{gpings} ], "text": "google.com " },
+        { "values": [ #{apings} ] , "text": "apple.com "},
+        { "values": [ #{ppings} ] , "text": "plus.net"}
         ]
         };
+
        var rate_chartData={
        "type":"line",  // Specify your chart type here.
+       "title": {
+            "text": "Download speed in Kbytes/s"
+       },
+       "legend": {},
+        "scale-y":{
+                 "zooming": true
+         },
+        "scale-x":{
+                   "min-value": #{the_time},    /* in Unix time */
+                   "step":"hour",                /* in Unix time (or use ZingChart's shortcuts) */
+                   "transform":{                /* to convert to a readable format */
+                        "type":"date",
+                        "all":"%H:%i %d, %M %y"
+                    },
+                    "zooming": true
+       },
        "series":[  // Insert your series data here.
-        { "values": [ #{gpings} ] },
-        { "values": [ #{apings} ] },
-        { "values": [ #{ppings} ] }
+        { "values": [ #{bradbury_rates} ] , "text": "bradbury"},
+        { "values": [ #{plus_rates} ] , "text": "plusnet" },
+        { "values": [ #{imac_rates} ] , "text": "imac "}
         ]
         };
         window.onload=function(){  // Render Method[2]
@@ -45,7 +70,7 @@ html
          });
        };
   body
-    h1=keith
+    h1="Internet speeds"
 
     div(id="pingDiv")
     div(id="rateDiv")
