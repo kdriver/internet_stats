@@ -20,13 +20,13 @@ var docs=[];
 var google_pings=[];
 
 var findTimes = function(db, callback) {
-    var cursor = db.collection('mbp').find( ).sort({"$natural":-1}).limit(10);
+    var cursor = db.collection('mbp').find( ).sort({"$natural": -1}).limit(48);
    docs = [];
     cursor.each(function(err,doc) {
                 assert.equal(err,null);
                 //process.stdout.write("mongoing\n");
                 if ( doc != null) {
-                docs.push(doc);
+                docs.unshift(doc);
                 }
                 else
                 {
