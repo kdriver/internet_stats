@@ -20,7 +20,7 @@ var docs=[];
 var google_pings=[];
 
 var findTimes = function(db, callback) {
-    var cursor = db.collection('mbp').find( ).sort({"$natural": -1}).limit(48);
+    var cursor = db.collection('mbp').find( ).sort({"timestamp": -1}).limit(100);
    docs = [];
     cursor.each(function(err,doc) {
                 assert.equal(err,null);
