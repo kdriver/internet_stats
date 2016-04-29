@@ -6,7 +6,7 @@ html
     script(type='text/javascript' src="zingchart/client/zingchart.min.js")
 
     script.
-       var ping_chartData={
+       var ping_chartData={ //   PING data
        "type":"line",  // Specify your chart type here.
        "plot":{ 
             "aspect":"spline" 
@@ -34,7 +34,7 @@ html
         ]
         };
 
-       var rate_chartData={
+       var rate_chartData={ //   RATE data
        "type":"line",  // Specify your chart type here.
        "plot":{ 
             "aspect":"spline" 
@@ -46,7 +46,7 @@ html
         "scale-y":{
                  "zooming": true
          },
-        "scale-x":{
+       "scale-x":{
                    "min-value": #{the_time},    /* in Unix time */
                    "step":"hour",                /* in Unix time (or use ZingChart's shortcuts) */
                    "transform":{                /* to convert to a readable format */
@@ -58,6 +58,29 @@ html
        "series":[  // Insert your series data here.
         { "values": [ #{bradbury_rates} ] , "text": "bradbury"},
         { "values": [ #{plus_rates} ] , "text": "plusnet" } /*        { "values": [ #{imac_rates} ] , "text": "imac "} */
+        ]
+        };
+        /*       s_values=[[#{s_rates[0]}.ts,1]];*/
+       s_values=[[0,1]];
+       var rate_scatter_chartData={ //   SCATTER data
+       "type":"scatter",  // Specify your chart type here.
+       "plot":{ 
+            "aspect":"spline" 
+        },
+       "title": {
+            "text": "Download speed in Kbytes/s"
+       },
+       "legend": {},
+        "scale-y":{
+                 "zooming": true
+         },
+        "scale-x":{
+                    "zooming": true
+       },
+       "series":[  // Insert your series data here.
+                { 
+                   "values":  s_values 
+                }
         ]
         };
         window.onload=function(){  // Render Method[2]
@@ -83,12 +106,23 @@ html
   body
     h1="Internet speeds"
 
+    p.
+     #{scatter_rates[0].ts}
+     #{scatter_rates[99].ts}
+
     div(id="pingDiv")&attributes({"style":"float:left"})
     div(id="rateDiv")&attributes({"style":"float:left"})
     div(id="scatter")&attributes({"style":"float:left"})
+
 //        each val in gpings
 //            li=JSON.stringify(val)
 //   To use this, it seems to have to go just below the h1
 //    ul
 //       each val in time_list
 //           li=JSON.stringify(new Date(parseInt(val._id.toString().substring(0,8),16)*1000).toUTCString())
+//    ul
+//      each val in scatter_rates
+//           ul
+//              li=JSON.stringify(val)
+//              li=JSON.stringify(new Date(parseInt(val[0].toString())).toUTCString())
+//              li=JSON.stringify(val[1].toString())

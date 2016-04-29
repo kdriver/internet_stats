@@ -54,9 +54,12 @@ router.get('/times', function(req, res) {
 			plus_rates=[];
 			bradbury_rates=[];
 			imac_rates=[];
+			scatter_rates=[];
                         scale=1000;
 			the_time=docs[0].timestamp;
                         for ( var i = 0 ; i < len ; i++ ) {
+			   item=   { "ts": docs[i].timestamp, "v": docs[i].bradbury_rate/scale };
+                           scatter_rates.push(item);
                            google_pings.push(docs[i].google_ping);
                            plus_pings.push(docs[i].plus_ping);
                            apple_pings.push(docs[i].apple_ping);
@@ -69,7 +72,8 @@ router.get('/times', function(req, res) {
                                 "gpings"    : google_pings,
                                 "apings"    : apple_pings,
                                 "ppings"    : plus_pings,
-                                "b_rates"    : bradbury_rates
+                                "b_rates"    : bradbury_rates,
+                                "s_rates"    : scatter_rates
                            };
 
 			   res.render('times', options );
